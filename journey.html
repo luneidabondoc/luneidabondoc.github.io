@@ -523,6 +523,51 @@
 
   .chapter-spacer { flex: 1; }
 
+  /* Whisper — the reflective aside on the blank side */
+  .whisper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 1rem 1.5rem;
+  }
+
+  .chapter:nth-child(odd) .whisper { align-items: flex-start; }
+  .chapter:nth-child(even) .whisper { align-items: flex-end; text-align: right; }
+
+  @media (max-width: 680px) {
+    .whisper { display: none; }
+  }
+
+  .whisper-location {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--dust);
+    margin-bottom: 0.6rem;
+  }
+
+  .whisper-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--soil);
+    line-height: 1.65;
+    max-width: 220px;
+    opacity: 0.75;
+  }
+
+  .whisper-line {
+    width: 28px;
+    height: 1px;
+    background: var(--dust);
+    margin-top: 0.85rem;
+  }
+
+  .chapter:nth-child(even) .whisper .whisper-line { margin-left: auto; }
+
   footer {
     background: var(--ink);
     color: var(--dust);
@@ -579,11 +624,19 @@
         </div>
       </div>
       <div class="chapter-node">🩺</div>
-      <div class="chapter-spacer"></div>
+      <div class="whisper">
+        <span class="whisper-location">📍 Philippines</span>
+        <p class="whisper-quote">Medicine was never just a career. It was a promise I made to the people around me.</p>
+        <div class="whisper-line"></div>
+      </div>
     </div>
 
     <div class="chapter c2">
-      <div class="chapter-spacer"></div>
+      <div class="whisper">
+        <span class="whisper-location">The Reckoning</span>
+        <p class="whisper-quote">Burnout wasn't the end of my caring. It was proof that I never stopped.</p>
+        <div class="whisper-line"></div>
+      </div>
       <div class="chapter-node">🔥</div>
       <div class="chapter-side">
         <div class="chapter-card">
@@ -613,11 +666,19 @@
         </div>
       </div>
       <div class="chapter-node">✈️</div>
-      <div class="chapter-spacer"></div>
+      <div class="whisper">
+        <span class="whisper-location">📍 Australia</span>
+        <p class="whisper-quote">I arrived carrying everything I knew — and had to learn who I was without the familiar.</p>
+        <div class="whisper-line"></div>
+      </div>
     </div>
 
     <div class="chapter c4">
-      <div class="chapter-spacer"></div>
+      <div class="whisper">
+        <span class="whisper-location">The Pivot</span>
+        <p class="whisper-quote">Public health let me ask the question I'd always wanted to: why does this keep happening?</p>
+        <div class="whisper-line"></div>
+      </div>
       <div class="chapter-node">🌏</div>
       <div class="chapter-side">
         <div class="chapter-card">
@@ -647,11 +708,19 @@
         </div>
       </div>
       <div class="chapter-node">⚖️</div>
-      <div class="chapter-spacer"></div>
+      <div class="whisper">
+        <span class="whisper-location">The Framework</span>
+        <p class="whisper-quote">Access to care is not a privilege for those who know how to navigate. It is a right for everyone.</p>
+        <div class="whisper-line"></div>
+      </div>
     </div>
 
     <div class="chapter c6">
-      <div class="chapter-spacer"></div>
+      <div class="whisper">
+        <span class="whisper-location">📍 Melbourne, Australia</span>
+        <p class="whisper-quote">Every participant I support reminds me why I never stopped asking: how can I do more?</p>
+        <div class="whisper-line"></div>
+      </div>
       <div class="chapter-node">🦽</div>
       <div class="chapter-side">
         <div class="chapter-card">
@@ -682,7 +751,11 @@
         </div>
       </div>
       <div class="chapter-node">🧭</div>
-      <div class="chapter-spacer"></div>
+      <div class="whisper">
+        <span class="whisper-location">The Thread</span>
+        <p class="whisper-quote">The title has changed many times. The reason I show up never has.</p>
+        <div class="whisper-line"></div>
+      </div>
     </div>
 
     <div class="insight-banner">
