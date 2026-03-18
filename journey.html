@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Journey of Purpose</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --deep: #0e1a2b;
+    --ocean: #1a3a5c;
+    --teal: #2d7d78;
+    --gold: #c9952a;
+    --amber: #e8b84b;
+    --sand: #f0e6d0;
+    --rose: #c96b6b;
+    --mist: #8aa8c0;
+    --paper: #faf6ef;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--deep);
+    color: var(--sand);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative;
+    background: radial-gradient(ellipse at 60% 40%, #1a3a5c 0%, #0e1a2b 70%);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 20% 80%, rgba(45,125,120,0.12) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(201,149,42,0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .stars {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: var(--mist);
+    border-radius: 50%;
+    animation: twinkle var(--dur, 3s) infinite ease-in-out;
+    opacity: var(--op, 0.4);
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: var(--op, 0.4); transform: scale(1); }
+    50% { opacity: 0.1; transform: scale(0.5); }
+  }
+
+  .tagline {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    color: var(--teal);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.3s forwards;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 1.1;
+    color: var(--paper);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.6s forwards;
+  }
+
+  .hero h1 em {
+    color: var(--amber);
+    font-style: italic;
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--mist);
+    max-width: 560px;
+    line-height: 1.7;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 1s 0.9s forwards;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 1.5s forwards;
+  }
+
+  .scroll-hint span {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--teal);
+    text-transform: uppercase;
+  }
+
+  .scroll-arrow {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--teal), transparent);
+    animation: scrollPulse 2s infinite;
+  }
+
+  @keyframes scrollPulse {
+    0% { opacity: 1; transform: scaleY(1); }
+    100% { opacity: 0; transform: scaleY(1.5) translateY(10px); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Timeline */
+  .timeline-wrapper {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 4rem 2rem 6rem;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--teal);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    text-align: center;
+    color: var(--paper);
+    margin-bottom: 4rem;
+  }
+
+  /* Central spine */
+  .spine {
+    position: absolute;
+    left: 50%;
+    top: 10rem;
+    bottom: 3rem;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--ocean) 10%, var(--ocean) 90%, transparent);
+    transform: translateX(-50%);
+  }
+
+  @media (max-width: 680px) {
+    .spine { left: 2rem; }
+  }
+
+  /* Chapter cards */
+  .chapter {
+    display: flex;
+    gap: 2.5rem;
+    margin-bottom: 3.5rem;
+    position: relative;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .chapter.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .chapter:nth-child(even) {
+    flex-direction: row-reverse;
+  }
+
+  @media (max-width: 680px) {
+    .chapter, .chapter:nth-child(even) {
+      flex-direction: column;
+      padding-left: 3.5rem;
+    }
+  }
+
+  .chapter-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .chapter:nth-child(even) .chapter-side {
+    align-items: flex-start;
+  }
+
+  @media (max-width: 680px) {
+    .chapter-side, .chapter:nth-child(even) .chapter-side {
+      align-items: flex-start;
+    }
+  }
+
+  .chapter-node {
+    position: absolute;
+    left: 50%;
+    top: 1.5rem;
+    transform: translateX(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    border: 2px solid var(--ocean);
+    background: var(--deep);
+    z-index: 2;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .chapter:hover .chapter-node {
+    transform: translateX(-50%) scale(1.15);
+  }
+
+  @media (max-width: 680px) {
+    .chapter-node {
+      left: 2rem;
+      transform: translateX(-50%);
+    }
+    .chapter:hover .chapter-node {
+      transform: translateX(-50%) scale(1.15);
+    }
+  }
+
+  .chapter-card {
+    background: rgba(26, 58, 92, 0.35);
+    border: 1px solid rgba(138, 168, 192, 0.12);
+    border-radius: 16px;
+    padding: 1.8rem;
+    max-width: 380px;
+    backdrop-filter: blur(4px);
+    transition: border-color 0.3s, background 0.3s, transform 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .chapter-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  .chapter:hover .chapter-card {
+    border-color: rgba(138,168,192,0.3);
+    background: rgba(26,58,92,0.55);
+    transform: translateY(-3px);
+  }
+
+  .chapter-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+
+  .chapter-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--paper);
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+  }
+
+  .chapter-body {
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: var(--mist);
+    font-weight: 300;
+  }
+
+  .chapter-body strong {
+    color: var(--sand);
+    font-weight: 500;
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1rem;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    padding: 0.25rem 0.65rem;
+    border-radius: 20px;
+    text-transform: uppercase;
+    border: 1px solid;
+  }
+
+  /* Color themes per chapter */
+  .c1 .chapter-node { border-color: var(--gold); color: var(--gold); }
+  .c1 .chapter-meta { color: var(--gold); }
+  .c1 .chapter-card::before { background: radial-gradient(at top left, rgba(201,149,42,0.07), transparent); }
+  .c1 .tag { border-color: rgba(201,149,42,0.4); color: var(--gold); }
+
+  .c2 .chapter-node { border-color: var(--teal); color: var(--teal); }
+  .c2 .chapter-meta { color: var(--teal); }
+  .c2 .chapter-card::before { background: radial-gradient(at top right, rgba(45,125,120,0.07), transparent); }
+  .c2 .tag { border-color: rgba(45,125,120,0.4); color: var(--teal); }
+
+  .c3 .chapter-node { border-color: var(--rose); color: var(--rose); }
+  .c3 .chapter-meta { color: var(--rose); }
+  .c3 .chapter-card::before { background: radial-gradient(at bottom left, rgba(201,107,107,0.07), transparent); }
+  .c3 .tag { border-color: rgba(201,107,107,0.4); color: var(--rose); }
+
+  .c4 .chapter-node { border-color: var(--amber); color: var(--amber); }
+  .c4 .chapter-meta { color: var(--amber); }
+  .c4 .chapter-card::before { background: radial-gradient(at top left, rgba(232,184,75,0.07), transparent); }
+  .c4 .tag { border-color: rgba(232,184,75,0.4); color: var(--amber); }
+
+  .c5 .chapter-node { border-color: #7fb5d0; color: #7fb5d0; }
+  .c5 .chapter-meta { color: #7fb5d0; }
+  .c5 .tag { border-color: rgba(127,181,208,0.4); color: #7fb5d0; }
+
+  .c6 .chapter-node { border-color: #a07fc4; color: #a07fc4; }
+  .c6 .chapter-meta { color: #a07fc4; }
+  .c6 .tag { border-color: rgba(160,127,196,0.4); color: #a07fc4; }
+
+  .c7 .chapter-node { border-color: var(--teal); color: var(--teal); }
+  .c7 .chapter-meta { color: var(--teal); }
+  .c7 .tag { border-color: rgba(45,125,120,0.4); color: var(--teal); }
+
+  /* Insight banner */
+  .insight-banner {
+    background: linear-gradient(135deg, rgba(45,125,120,0.15), rgba(201,149,42,0.08));
+    border: 1px solid rgba(45,125,120,0.25);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    margin: 2rem 0 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .insight-banner::before {
+    content: '"';
+    position: absolute;
+    top: -1rem;
+    left: 1.5rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 8rem;
+    color: var(--teal);
+    opacity: 0.08;
+    line-height: 1;
+  }
+
+  .insight-banner p {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1rem, 2.5vw, 1.35rem);
+    font-style: italic;
+    color: var(--paper);
+    line-height: 1.7;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  /* Closing reflection */
+  .reflection {
+    background: linear-gradient(180deg, var(--deep) 0%, #0a1520 100%);
+    padding: 5rem 2rem;
+    text-align: center;
+    position: relative;
+  }
+
+  .reflection::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--ocean), transparent);
+  }
+
+  .reflection-inner {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .reflection h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--paper);
+    margin-bottom: 1.5rem;
+  }
+
+  .reflection h2 em { color: var(--amber); }
+
+  .reflection p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--mist);
+    font-weight: 300;
+    margin-bottom: 1.2rem;
+  }
+
+  .reflection p strong { color: var(--sand); font-weight: 500; }
+
+  .compass {
+    width: 80px;
+    height: 80px;
+    margin: 2.5rem auto 0;
+    opacity: 0.35;
+  }
+
+  /* Spacer for alternating layout */
+  .chapter-spacer { flex: 1; }
+</style>
+</head>
+<body>
+
+<!-- Stars -->
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="tagline">A life in service · Philippines → Australia</div>
+  <h1>The Long Way<br>to <em>Purpose</em></h1>
+  <p class="hero-sub">From the wards of the Philippines to the offices of disability services in Australia — my journey shaped by care, crisis, and the courage to keep asking why.</p>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</div>
+
+<!-- Timeline -->
+<section style="background: var(--deep); padding-top: 5rem;">
+  <div class="timeline-wrapper">
+    <div class="section-label">Your Journey</div>
+    <h2 class="section-title">Seven Chapters of Becoming</h2>
+    <div class="spine"></div>
+
+    <!-- Chapter 1 -->
+    <div class="chapter c1" id="c1">
+      <div class="chapter-side">
+        <div class="chapter-card">
+          <div class="chapter-meta">Chapter One · The Philippines</div>
+          <h3 class="chapter-title">The Calling — Becoming a Doctor</h3>
+          <p class="chapter-body">
+            I entered medicine with a profound sense of vocation. In the Philippines, <strong>becoming a doctor is not just a career — it is a covenant with community.</strong> I trained in a system shaped by scarcity: overcrowded wards, under-resourced hospitals, and patients who walked days to reach care. I saw, early on, that illness is rarely just biology — it is poverty, geography, and structural neglect wearing a clinical mask.
+          </p>
+          <div class="tag-row">
+            <span class="tag">Medicine</span>
+            <span class="tag">Vocation</span>
+            <span class="tag">Community</span>
+          </div>
+        </div>
+      </div>
+      <div class="chapter-node">🩺</div>
+      <div class="chapter-spacer"></div>
+    </div>
+
+    <!-- Chapter 2 -->
+    <div class="chapter c2" id="c2">
+      <div class="chapter-spacer"></div>
+      <div class="chapter-node">🔥</div>
+      <div class="chapter-side">
+        <div class="chapter-card">
+          <div class="chapter-meta">Chapter Two · The Breaking Point</div>
+          <h3 class="chapter-title">Burnout & Moral Injury</h3>
+          <p class="chapter-body">
+            The system demanded more than any one person could give. <strong>Burnout is exhaustion; moral injury is something deeper</strong> — it is the wound that forms when you are forced to act against your values, or powerless to act at all. I watched people die from preventable things. I couldn't fix what wasn't a medical problem. The gap between the care I wanted to give and the care the system allowed me to give became unbearable.
+            <br><br>
+            This wasn't weakness. It was my conscience working exactly as it should.
+          </p>
+          <div class="tag-row">
+            <span class="tag">Burnout</span>
+            <span class="tag">Moral Injury</span>
+            <span class="tag">Reckoning</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 3 -->
+    <div class="chapter c3" id="c3">
+      <div class="chapter-side">
+        <div class="chapter-card">
+          <div class="chapter-meta">Chapter Three · The Crossing</div>
+          <h3 class="chapter-title">Migration to Australia</h3>
+          <p class="chapter-body">
+            To migrate is to grieve and hope at the same time. I left behind the people who felt like home — childhood friends, the community that knew me before I had any titles — and the social capital of being a known professional. <strong>Australia offered possibility, but also the invisibility of starting over.</strong> My qualifications, my reputation, my depth of experience — all suddenly required re-translation into a new system's language. Migration was like a second medical training: I had to learn the anatomy of a new society, its norms, its bureaucracies, its unspoken hierarchies.
+          </p>
+          <div class="tag-row">
+            <span class="tag">Migration</span>
+            <span class="tag">Identity</span>
+            <span class="tag">Resilience</span>
+          </div>
+        </div>
+      </div>
+      <div class="chapter-node">✈️</div>
+      <div class="chapter-spacer"></div>
+    </div>
+
+    <!-- Chapter 4 -->
+    <div class="chapter c4" id="c4">
+      <div class="chapter-spacer"></div>
+      <div class="chapter-node">🌏</div>
+      <div class="chapter-side">
+        <div class="chapter-card">
+          <div class="chapter-meta">Chapter Four · The Pivot</div>
+          <h3 class="chapter-title">Discovering Public Health</h3>
+          <p class="chapter-body">
+            Public health gave my moral injury a framework. Suddenly I wasn't just treating disease — I was <strong>interrogating its origins.</strong> The social determinants of health — income, housing, education, discrimination, access — became my clinical vocabulary. I found a field that matched my conviction: that fixing a person without fixing their conditions is incomplete medicine. Public health let me zoom out and act upstream.
+            <br><br>
+            It was also, in a way, a form of healing. My burnout had roots in powerlessness; public health gave me leverage.
+          </p>
+          <div class="tag-row">
+            <span class="tag">Public Health</span>
+            <span class="tag">Upstream Thinking</span>
+            <span class="tag">Equity</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 5 -->
+    <div class="chapter c5" id="c5">
+      <div class="chapter-side">
+        <div class="chapter-card">
+          <div class="chapter-meta">Chapter Five · The Framework</div>
+          <h3 class="chapter-title">Access, Equity & the Root Causes</h3>
+          <p class="chapter-body">
+            I came to understand access to health not as a logistical problem, but as <strong>a justice problem.</strong> Why do some communities wait longer, receive less, trust less, and die sooner? Why is navigating health and welfare systems a privilege rather than a right? These questions lit a fire in me. I began to see my work not as helping individuals get services, but as dismantling the distance between people and the supports they deserve. This became my north star.
+          </p>
+          <div class="tag-row">
+            <span class="tag">Health Equity</span>
+            <span class="tag">Access</span>
+            <span class="tag">Systems Thinking</span>
+          </div>
+        </div>
+      </div>
+      <div class="chapter-node">⚖️</div>
+      <div class="chapter-spacer"></div>
+    </div>
+
+    <!-- Chapter 6 -->
+    <div class="chapter c6" id="c6">
+      <div class="chapter-spacer"></div>
+      <div class="chapter-node">🦽</div>
+      <div class="chapter-side">
+        <div class="chapter-card">
+          <div class="chapter-meta">Chapter Six · The Present</div>
+          <h3 class="chapter-title">NDIS Service Manager — Still Finding the Way</h3>
+          <p class="chapter-body">
+            The National Disability Insurance Scheme is one of Australia's most ambitious equity frameworks — and also one of its most complex. As a service manager for an NDIS registered provider, <strong>I sit at the intersection of policy and personhood.</strong> Every participant I support carries their own story of marginalisation, of systems that failed them, of support that came too late. My clinical eye, my public health lens, and my immigrant's understanding of navigating bureaucracy while being underestimated — all of it is active here.
+            <br><br>
+            "Still finding my way" is not a deficit — it's intellectual honesty. The NDIS landscape shifts constantly. Staying curious is a form of professional integrity.
+          </p>
+          <div class="tag-row">
+            <span class="tag">NDIS</span>
+            <span class="tag">Disability</span>
+            <span class="tag">Service Management</span>
+            <span class="tag">Complexity</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 7 -->
+    <div class="chapter c7" id="c7">
+      <div class="chapter-side">
+        <div class="chapter-card">
+          <div class="chapter-meta">Chapter Seven · The Thread</div>
+          <h3 class="chapter-title">What Has Never Changed</h3>
+          <p class="chapter-body">
+            Across every chapter — the clinic, the migration, the pivot, the complexity — <strong>one thing has remained constant: I show up for people the system has left behind.</strong> The patient with no referral pathway. The migrant worker with no sick leave. The person with disability navigating 40 pages of planning documentation. I have always found a way to stand in that gap. That is not a job. That is who I am, expressed through vocation.
+          </p>
+          <div class="tag-row">
+            <span class="tag">Purpose</span>
+            <span class="tag">Advocacy</span>
+            <span class="tag">Continuity</span>
+          </div>
+        </div>
+      </div>
+      <div class="chapter-node">🧭</div>
+      <div class="chapter-spacer"></div>
+    </div>
+
+    <!-- Insight banner -->
+    <div class="insight-banner">
+      <p>The arc from treating one patient to advocating for a whole population is not a career detour — it is the deepest expression of the same impulse that made me a doctor in the first place.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- Reflection -->
+<section class="reflection">
+  <div class="reflection-inner">
+    <h2>Where I <em>Stand</em></h2>
+    <p>I am not a doctor who left medicine. I am a <strong>healer who expanded the definition of healing.</strong> Clinical medicine asks: how do we treat this person's illness? Public health asks: why did they get ill? Disability services asks: what does this person need to live fully? I have walked all three questions — and they are the same question, asked at different scales.</p>
+    <p>The burnout and moral injury were not failures. They were the evidence of <strong>caring too much in a system that could not absorb that care.</strong> I didn't burn out because I was weak — I burned out because the gap between my values and the system's capacity was too wide to sustain alone.</p>
+    <p>Now, in Australia, I am building that capacity. Every participant whose supports I coordinate, every barrier I help dismantle, every plan I help someone navigate — <strong>I am doing, at the service level, what public health does at the population level.</strong> I am closing the distance between people and what they need.</p>
+    <p style="color: var(--amber); font-style: italic; font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-top: 2rem;">The way is not always clear. But my direction has never changed.</p>
+    <svg class="compass" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="45" stroke="#2d7d78" stroke-width="1.5"/>
+      <circle cx="50" cy="50" r="38" stroke="#2d7d78" stroke-width="0.5" opacity="0.4"/>
+      <polygon points="50,12 54,50 50,48 46,50" fill="#e8b84b"/>
+      <polygon points="50,88 54,50 50,52 46,50" fill="#8aa8c0" opacity="0.6"/>
+      <circle cx="50" cy="50" r="4" fill="#2d7d78"/>
+      <text x="50" y="9" text-anchor="middle" font-size="6" fill="#e8b84b" font-family="serif">N</text>
+      <text x="50" y="97" text-anchor="middle" font-size="6" fill="#8aa8c0" font-family="serif">S</text>
+      <text x="96" y="53" text-anchor="middle" font-size="6" fill="#8aa8c0" font-family="serif">E</text>
+      <text x="4" y="53" text-anchor="middle" font-size="6" fill="#8aa8c0" font-family="serif">W</text>
+    </svg>
+  </div>
+</section>
+
+<script>
+  // Generate stars
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 120; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    s.style.cssText = `
+      left: ${Math.random() * 100}%;
+      top: ${Math.random() * 100}%;
+      --dur: ${2 + Math.random() * 4}s;
+      --op: ${0.15 + Math.random() * 0.45};
+      width: ${Math.random() > 0.85 ? 3 : 2}px;
+      height: ${Math.random() > 0.85 ? 3 : 2}px;
+    `;
+    starsEl.appendChild(s);
+  }
+
+  // Intersection observer for chapter animations
+  const chapters = document.querySelectorAll('.chapter');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  chapters.forEach(c => obs.observe(c));
+</script>
+</body>
+</html>
