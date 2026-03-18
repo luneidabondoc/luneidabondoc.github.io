@@ -858,8 +858,8 @@
     <div class="work-cards reveal">
       <div class="work-card">
         <div class="card-icon">🗂️</div>
-        <h3 class="card-title">Service Coordination</h3>
-        <p class="card-body">I coordinate supports for NDIS participants, helping them navigate their plans, connect with providers, and build the services they need to pursue their goals — not just tick boxes.</p>
+        <h3 class="card-title">Service Management</h3>
+        <p class="card-body">I manage supports for NDIS participants, helping them navigate their plans, connect with providers, and build the services they need to pursue their goals — not just tick boxes.</p>
       </div>
       <div class="work-card">
         <div class="card-icon">🔍</div>
@@ -958,10 +958,27 @@
   <p>© 2026 Luneida Bondoc · <a href="journey.html">My Journey</a> · Made with purpose 🌿</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
- 
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(r => observer.observe(r));
+
+  // Trigger any already-visible elements on load
+  window.addEventListener('load', () => {
+    reveals.forEach(r => {
+      const rect = r.getBoundingClientRect();
+      if (rect.top < window.innerHeight) {
+        r.classList.add('visible');
+      }
+    });
+  });
+</script>
+</body>
+</html>
